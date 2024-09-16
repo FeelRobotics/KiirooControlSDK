@@ -31,8 +31,8 @@ describe('Kiiroo Control', () => {
   test('isConnected', () => {
     expect(kiirooControl.isConnected()).toBeFalsy();
   });
-  test('isDeviceInitialized', () => {
-    expect(kiirooControl.isDeviceInitialized()).toEqual(devNotInit);
+  test('getDeviceState', () => {
+    expect(kiirooControl.getDeviceState()).toEqual(devNotInit);
   });
   test('setEventListenerCallBack', () => {
     expect(kiirooControl.setEventListenerCallBack(() => {})).toBeUndefined();

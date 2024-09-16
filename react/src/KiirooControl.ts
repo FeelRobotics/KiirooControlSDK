@@ -99,9 +99,16 @@ export class KiirooControl {
   _axisZ: number;
 
   private device?: BluetoothDevice;
-  private controlService: BluetoothRemoteGATTService | null;
-  private sensorEventListenerCallBack: EventListenerCallBackFunction | null;
+  private controlService?: BluetoothRemoteGATTService;
+  private sensorEventListenerCallBack?: EventListenerCallBackFunction;
   private deviceNotInitMsg = 'The device should be connected first.';
+  private deviceNotFound = 'The device is invalid or not found';
+
+  constructor() {
+    this._axisX = 0;
+    this._axisY = 0;
+    this._axisZ = 0;
+  }
 
   /**
    * Sets up a listener for a Bluetooth characteristic's value changes.
@@ -160,14 +167,6 @@ export class KiirooControl {
         'Invalid input type. Expected Array<number> or ArrayBuffer.'
       );
     }
-  }
-
-  constructor() {
-    this._axisX = 0;
-    this._axisY = 0;
-    this._axisZ = 0;
-    this.controlService = null;
-    this.sensorEventListenerCallBack = null;
   }
 
   /**
@@ -380,12 +379,6 @@ export class KiirooControl {
    * @throws {Error} - If the device is not connected.
    */
   async getDeviceName(): Promise<string> {
-    console.log(
-      '!this.controlService:',
-      !this.controlService,
-      this.controlService
-    );
-
     if (!this.controlService || !this.isConnected) {
       return Promise.reject(this.deviceNotInitMsg);
     }
@@ -458,10 +451,10 @@ export class KiirooControl {
 
   /**
    * Checks if the device has been initialized.
-   * @returns {string} - Error message if the device is not connected, otherwise an empty string.
+   * @returns {string} - Error message if the device is not connected, otherwise a status string.
    */
-  isDeviceInitialized(): string {
-    let msg = '';
+  getDeviceState(): string {
+    let msg = 'Initialized.';
     if (!this.controlService || !this.isConnected) {
       msg = this.deviceNotInitMsg;
     }
@@ -489,9 +482,9 @@ export class KiirooControl {
    * @returns {Promise<void>} - Resolves when the device is successfully connected.
    * @throws {Error} - If there is an error during connection.
    */
-  async connect(device: BluetoothDevice): Promise<any> {
+  async connect(device: BluetoothDevice): Promise<void> {
     if (!device.gatt) {
-      return Promise.reject('The device is invalid or not found');
+      return Promise.reject(this.deviceNotFound);
     }
 
     this.device = device;
@@ -513,6 +506,9 @@ export class KiirooControl {
       }
 
       console.debug('device succefully connected');
+    } else {
+      console.error(this.deviceNotFound);
+      return Promise.reject(this.deviceNotFound);
     }
   }
 
@@ -521,7 +517,7 @@ export class KiirooControl {
    * @returns {Promise<void>} - Resolves when the test is complete.
    * @throws {Error} - If the device is not connected.
    */
-  async testDevice(): Promise<any> {
+  async testDevice(): Promise<void> {
     if (!this.controlService || !this.isConnected) {
       return Promise.reject(this.deviceNotInitMsg);
     }
