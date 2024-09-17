@@ -283,26 +283,37 @@ export class KiirooControl {
     return this._axisZ;
   }
 
+  private async getDeviceCharValue(
+    deviceChar: BluetoothCharacteristicUUID
+  ): Promise<string> {
+    if (!this.controlService || !this.isConnected) {
+      return Promise.reject(this.deviceNotInitMsg);
+    }
+
+    const deviceCharacteristic = await this.controlService.getCharacteristic(
+      deviceChar
+    );
+    const data = await deviceCharacteristic.readValue();
+
+    const chars = [];
+    for (let i = 0; i < data.byteLength; i++) {
+      chars.push(String.fromCharCode(data.getUint8(i)));
+    }
+
+    let response = 'N/A';
+    if (chars) {
+      response = chars.join('');
+    }
+    return response;
+  }
+
   /**
    * Retrieves the firmware version from the connected device.
    * @returns {Promise<string>} - The firmware version as a string.
    * @throws {Error} - If the device is not connected.
    */
   async getFirmwareVersion(): Promise<string> {
-    if (!this.controlService || !this.isConnected) {
-      return Promise.reject(this.deviceNotInitMsg);
-    }
-    const firmwareChar = await this.controlService.getCharacteristic(
-      FIRMWARE_NUMBER_UUID
-    );
-    const data = await firmwareChar.readValue();
-
-    const chars = [];
-    for (let i = 0; i < data.byteLength; i++) {
-      chars.push(String.fromCharCode(data.getUint8(i)));
-    }
-    const version = chars.join('');
-    return version;
+    return await this.getDeviceCharValue(FIRMWARE_NUMBER_UUID);
   }
 
   /**
@@ -311,22 +322,7 @@ export class KiirooControl {
    * @throws {Error} - If the device is not connected.
    */
   async getSerialNumber(): Promise<string> {
-    if (!this.controlService || !this.isConnected) {
-      return Promise.reject(this.deviceNotInitMsg);
-    }
-    const hardwareChar = await this.controlService.getCharacteristic(
-      SERIAL_NUMBER_UUID
-    );
-
-    const data = await hardwareChar.readValue();
-
-    const chars = [];
-    for (let i = 0; i < data.byteLength; i++) {
-      chars.push(String.fromCharCode(data.getUint8(i)));
-    }
-
-    const serialNumber = chars.join('');
-    return serialNumber;
+    return await this.getDeviceCharValue(SERIAL_NUMBER_UUID);
   }
 
   /**
@@ -335,20 +331,7 @@ export class KiirooControl {
    * @throws {Error} - If the device is not connected.
    */
   async getModelNumber(): Promise<string> {
-    if (!this.controlService || !this.isConnected) {
-      return Promise.reject(this.deviceNotInitMsg);
-    }
-    const hardwareChar = await this.controlService.getCharacteristic(
-      MODEL_NUMBER_UUID
-    );
-    const data = await hardwareChar.readValue();
-
-    const chars = [];
-    for (let i = 0; i < data.byteLength; i++) {
-      chars.push(String.fromCharCode(data.getUint8(i)));
-    }
-    const modelNumber = chars.join('');
-    return modelNumber;
+    return await this.getDeviceCharValue(MODEL_NUMBER_UUID);
   }
 
   /**
@@ -357,20 +340,7 @@ export class KiirooControl {
    * @throws {Error} - If the device is not connected.
    */
   async getManufactureName(): Promise<string> {
-    if (!this.controlService || !this.isConnected) {
-      return Promise.reject(this.deviceNotInitMsg);
-    }
-    const hardwareChar = await this.controlService.getCharacteristic(
-      MANUFACTURER_NAME_UUID
-    );
-    const data = await hardwareChar.readValue();
-
-    const chars = [];
-    for (let i = 0; i < data.byteLength; i++) {
-      chars.push(String.fromCharCode(data.getUint8(i)));
-    }
-    const manufactureName = chars.join('');
-    return manufactureName;
+    return await this.getDeviceCharValue(MANUFACTURER_NAME_UUID);
   }
 
   /**
@@ -379,20 +349,7 @@ export class KiirooControl {
    * @throws {Error} - If the device is not connected.
    */
   async getDeviceName(): Promise<string> {
-    if (!this.controlService || !this.isConnected) {
-      return Promise.reject(this.deviceNotInitMsg);
-    }
-    const hardwareChar = await this.controlService.getCharacteristic(
-      READ_NAME_UUID
-    );
-    const data = await hardwareChar.readValue();
-
-    const chars = [];
-    for (let i = 0; i < data.byteLength; i++) {
-      chars.push(String.fromCharCode(data.getUint8(i)));
-    }
-    const deviceName = chars.join('');
-    return deviceName;
+    return await this.getDeviceCharValue(READ_NAME_UUID);
   }
 
   /**
@@ -401,20 +358,7 @@ export class KiirooControl {
    * @throws {Error} - If the device is not connected.
    */
   async getHardwareVersion(): Promise<string> {
-    if (!this.controlService || !this.isConnected) {
-      return Promise.reject(this.deviceNotInitMsg);
-    }
-    const hardwareChar = await this.controlService.getCharacteristic(
-      HARDWARE_NUMBER_UUID
-    );
-    const data = await hardwareChar.readValue();
-
-    const chars = [];
-    for (let i = 0; i < data.byteLength; i++) {
-      chars.push(String.fromCharCode(data.getUint8(i)));
-    }
-    const hardwareVersion = chars.join('');
-    return hardwareVersion;
+    return await this.getDeviceCharValue(HARDWARE_NUMBER_UUID);
   }
 
   /**
