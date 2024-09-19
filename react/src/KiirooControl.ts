@@ -283,6 +283,18 @@ export class KiirooControl {
     return this._axisZ;
   }
 
+  /**
+   * Retrieves the value of a specified Bluetooth characteristic from the connected device.
+   *
+   * This method reads the value of the given characteristic from the device's Bluetooth control service
+   * and converts the byte array into a string representation. It handles the case where the device is
+   * not yet initialized or connected by rejecting the promise with an appropriate error message.
+   *
+   * @param {BluetoothCharacteristicUUID} deviceChar - The UUID of the Bluetooth characteristic to read.
+   * @returns {Promise<string>} - A promise that resolves to the string representation of the characteristic's value.
+   *                              Returns 'N/A' if the value could not be retrieved.
+   * @throws {Promise<string>} - Rejects if the device's control service is not initialized or the device is not connected.
+   */
   private async getDeviceCharValue(
     deviceChar: BluetoothCharacteristicUUID
   ): Promise<string> {
