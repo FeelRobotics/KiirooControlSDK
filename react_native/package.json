@@ -1,10 +1,10 @@
 {
-  "name": "kiiroo-control-react-native",
-  "version": "1.0.0",
+  "name": "kiiroo-ctrl-react-native",
+  "version": "1.0.1",
   "description": "Kiiroo Control SDK",
   "author": "oleksiy@feelrobotics.com",
   "license": "MIT",
-  "repository": "https://github.com/FeelRobotics/KiirooControlReactNative",
+  "repository": "https://github.com/FeelRobotics/KiirooControlSDK",
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
   "source": "src/index.ts",
