@@ -136,7 +136,7 @@ class DeviceData {
    * @param {string} propName - UUID of the axis (CHAR_X_UUID, CHAR_Y_UUID, or CHAR_Z_UUID).
    * @param {number} value - Value to set for the axis.
    */
-  private set_fffx(propName: string, value: number) {
+  set_fffx(propName: string, value: number) {
     switch (propName) {
       case CHAR_X_UUID:
         this._axisX = value;

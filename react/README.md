@@ -1,4 +1,4 @@
-# Kiiroo Control Bluetooth Service
+# Kiiroo Control Bluetooth Service for React 
 
 ## Overview
 This module provides functionality to interact with Kiiroo Control devices via Bluetooth using Web Bluetooth API. It handles various Bluetooth GATT services and characteristics such as firmware updates, sensor data retrieval, and device information.
@@ -14,13 +14,13 @@ This module provides functionality to interact with Kiiroo Control devices via B
 This module can be installed using any package manager, such as npm or yarn:
 
 ```bash
-npm install kiiroo-control
+npm install kiiroo-control-react
 ```
 
 Or
 
 ```bash
-yarn add kiiroo-control
+yarn add kiiroo-control-react
 ```
 
 ## Usage

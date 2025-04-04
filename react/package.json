@@ -1,6 +1,7 @@
 {
-  "version": "0.1.0",
-  "license": "MIT",
+  "version": "0.1.1",
+  "license": "MIT",  
+  "repository": "https://github.com/FeelRobotics/KiirooControlSDK",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "files": [
@@ -33,7 +34,7 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "kiiroo-control-react",
+  "name": "kiiroo-ctrl-react",
   "author": "OleksiyB",
   "module": "dist/kiiroo-control-react.esm.js",
   "size-limit": [

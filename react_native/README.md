@@ -12,11 +12,16 @@ This class allows you to interact with Kiiroo Control devices via Bluetooth usin
 - Compatible with both iOS and Android, with platform-specific handling of MTU size and OTA updates
 
 ## Installation
-This module assumes that you have installed `react-native-ble-manager`. You can install it with the following commands:
+This module can be installed using any package manager, such as npm or yarn:
 
 ```bash
 npm install react-native-ble-manager
-react-native link react-native-ble-manager
+```
+
+Or
+
+```bash
+yarn add kiiroo-control-react-native
 ```
 
 ## Usage
